@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from savings.accounts.models import Source, Account, Deposit
+from savings.accounts.models import Source, Account, Deposit, Position
 
 
 @admin.register(Source)
@@ -35,3 +35,31 @@ class AccountAdmin(admin.ModelAdmin):
 @admin.register(Deposit)
 class DepositAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Position)
+class PositionAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Basic informations', {
+            'fields': (
+                'account',
+                'security',
+                'target_allocation',
+                'is_fractional',
+            )
+        }),
+        ('Stats', {
+            'fields': (
+                'nb_shares',
+                'total_invested',
+                'current_allocation',
+                'cost_basis',
+            )
+        }),
+    )
+    readonly_fields = (
+        'nb_shares',
+        'total_invested',
+        'current_allocation',
+        'cost_basis',
+    )
