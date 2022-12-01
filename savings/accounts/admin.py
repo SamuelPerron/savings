@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from savings.accounts.models import Source, Account, Deposit, Position
+from savings.services import percentage_to_display, money_amount_to_display
 
 
 @admin.register(Source)
@@ -10,6 +11,24 @@ class SourceAdmin(admin.ModelAdmin):
 
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
+    def day_pl(self, obj):
+        return percentage_to_display(obj.day_pl)
+
+    def roi(self, obj):
+        return percentage_to_display(obj.roi)
+
+    def total_deposits(self, obj):
+        return money_amount_to_display(obj.total_deposits)
+
+    def total_invested(self, obj):
+        return money_amount_to_display(obj.total_invested)
+
+    def available_capital(self, obj):
+        return money_amount_to_display(obj.available_capital)
+
+    def current_value(self, obj):
+        return money_amount_to_display(obj.current_value)
+
     fieldsets = (
         ('Basic informations', {
             'fields': ('source', 'user', 'label', 'account_type')
@@ -45,6 +64,24 @@ class DepositAdmin(admin.ModelAdmin):
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
+    def day_pl(self, obj):
+        return percentage_to_display(obj.day_pl)
+
+    def roi(self, obj):
+        return percentage_to_display(obj.roi)
+
+    def current_allocation(self, obj):
+        return percentage_to_display(obj.current_allocation)
+
+    def total_invested(self, obj):
+        return money_amount_to_display(obj.total_invested)
+
+    def cost_basis(self, obj):
+        return money_amount_to_display(obj.cost_basis)
+
+    def current_value(self, obj):
+        return money_amount_to_display(obj.current_value)
+
     fieldsets = (
         ('Basic informations', {
             'fields': (
