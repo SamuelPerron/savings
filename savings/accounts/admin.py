@@ -22,6 +22,7 @@ class AccountAdmin(admin.ModelAdmin):
                 'nb_shares',
                 'day_pl',
                 'current_value',
+                'roi',
             )
         }),
     )
@@ -32,6 +33,7 @@ class AccountAdmin(admin.ModelAdmin):
         'nb_shares',
         'day_pl',
         'current_value',
+        'roi',
     )
 
 
@@ -60,6 +62,7 @@ class PositionAdmin(admin.ModelAdmin):
                 'cost_basis',
                 'day_pl',
                 'current_value',
+                'roi',
             )
         }),
     )
@@ -70,4 +73,5 @@ class PositionAdmin(admin.ModelAdmin):
         'cost_basis',
         'day_pl',
         'current_value',
+        'roi',
     )

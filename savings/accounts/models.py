@@ -67,6 +67,12 @@ class Account(models.Model):
             [position.day_pl for position in self.positions.all()]
         )
 
+    @property
+    def roi(self):
+        return sum(
+            [position.roi for position in self.positions.all()]
+        )
+
     def __str__(self):
         return self.label
 
@@ -129,7 +135,7 @@ class Position(models.Model):
 
     @property
     def day_pl(self):
-        return self.nb_shares * self.security.day_pl
+        return self.security.day_pl
 
     @property
     def cost_basis(self):
@@ -140,6 +146,10 @@ class Position(models.Model):
             return 0
 
         return total_invested / nb_shares
+
+    @property
+    def roi(self):
+        return (self.current_value - self.total_invested) / self.current_value
 
     def __str__(self):
         return f'{self.security} → {self.account}'
