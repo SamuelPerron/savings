@@ -1,5 +1,7 @@
 from django.db import models
 
+import yfinance as yf
+
 
 class Exchange(models.Model):
     name = models.CharField(max_length=50)
@@ -16,6 +18,21 @@ class Security(models.Model):
         on_delete=models.CASCADE,
         related_name='securities'
     )
+
+    def get_ticker_object(self):
+        return yf.Ticker(f'{self.ticker}.{self.exchange.label}')
+
+    @property
+    def price(self):
+        ticker = self.get_ticker_object()
+        return ticker.info['regularMarketPrice']
+
+    @property
+    def day_pl(self):
+        ticker = self.get_ticker_object()
+        current_price = self.price
+        yesterday_price = ticker.history(period="2d").iloc[0]['Close']
+        return (current_price - yesterday_price) / current_price
 
     def __str__(self):
         return self.ticker

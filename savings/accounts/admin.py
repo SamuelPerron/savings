@@ -20,6 +20,8 @@ class AccountAdmin(admin.ModelAdmin):
                 'total_invested',
                 'available_capital',
                 'nb_shares',
+                'day_pl',
+                'current_value',
             )
         }),
     )
@@ -28,6 +30,8 @@ class AccountAdmin(admin.ModelAdmin):
         'total_invested',
         'available_capital',
         'nb_shares',
+        'day_pl',
+        'current_value',
     )
 
 
@@ -54,6 +58,8 @@ class PositionAdmin(admin.ModelAdmin):
                 'total_invested',
                 'current_allocation',
                 'cost_basis',
+                'day_pl',
+                'current_value',
             )
         }),
     )
@@ -62,4 +68,6 @@ class PositionAdmin(admin.ModelAdmin):
         'total_invested',
         'current_allocation',
         'cost_basis',
+        'day_pl',
+        'current_value',
     )

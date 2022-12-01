@@ -50,10 +50,22 @@ class Account(models.Model):
         return self.total_deposits - self.total_invested
 
     @property
+    def current_value(self):
+        return sum(
+            [position.current_value for position in self.positions.all()]
+        )
+
+    @property
     def nb_shares(self):
         return self.transactions.aggregate(
             models.Sum('quantity')
         )['quantity__sum']
+
+    @property
+    def day_pl(self):
+        return sum(
+            [position.day_pl for position in self.positions.all()]
+        )
 
     def __str__(self):
         return self.label
@@ -110,6 +122,14 @@ class Position(models.Model):
             return 0
 
         return total_invested / account_total_invested
+
+    @property
+    def current_value(self):
+        return self.nb_shares * self.security.price
+
+    @property
+    def day_pl(self):
+        return self.nb_shares * self.security.day_pl
 
     @property
     def cost_basis(self):

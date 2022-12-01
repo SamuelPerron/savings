@@ -10,7 +10,18 @@ class ExchangeAdmin(admin.ModelAdmin):
 
 @admin.register(Security)
 class SecurityAdmin(admin.ModelAdmin):
-    pass
+    fieldsets = (
+        ('Basic informations', {
+            'fields': (
+                'ticker',
+                'exchange',
+            )
+        }),
+        ('Stats', {
+            'fields': ('price', 'day_pl')
+        }),
+    )
+    readonly_fields = ('price', 'day_pl')
 
 
 @admin.register(Transaction)
