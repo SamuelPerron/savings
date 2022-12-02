@@ -5,6 +5,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  timescaledb:
+    image: timescale/timescaledb-ha:pg14-latest
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
   web:
     restart: always
     environment:
@@ -20,6 +27,7 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+      - timescaledb
 
   documentation:
     restart: always
@@ -32,3 +40,4 @@ services:
 
 volumes:
   postgres_data: {}
+  timescale_data: {}
