@@ -26,6 +26,7 @@ class Common(Configuration):
         'savings.users',
         'savings.accounts',
         'savings.transactions',
+        'savings.history',
     )
 
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
@@ -56,7 +57,7 @@ class Common(Configuration):
         'default': dj_database_url.config(
             default='postgres://postgres:@postgres:5432/postgres',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
-        )
+        ),
     }
 
     # General
